@@ -157,7 +157,7 @@ function get_data(url, json_query, dataId, divid) {
                         if (element._metadata != null && "level_2:metric_id" in element._metadata) {
                             metrics_names[element._metadata["level_2:metric_id"]] = element.title
 
-                        } 
+                        }
                     });
 
                     // parsing GraphQL wrapped JSON Object
@@ -166,7 +166,7 @@ function get_data(url, json_query, dataId, divid) {
                     } catch (err) {
                         console.warn (err);
                     }
-                    
+
                     // get optimization point
                     if (result[0].datalink.inline_data.visualization.optimization == "bottom-right") {
                         better[divid] = "bottom-right";
@@ -234,8 +234,14 @@ function join_all_json(result, divid, metric_x, metric_y, metrics_names, better)
 
         // add buttons
         add_buttons(divid, metric_x, metric_y, better, full_json, result[0]);
+        let axis_limit;
+        if (document.getElementById(divid + "axis_button").name == "optimal view") {
+            axis_limit = 0;
+        } else {
+            axis_limit = "auto"
+        }
 
-        createChart(full_json, divid, classification_type, metric_x, metric_y, metrics_names, better, 0);
+        createChart(full_json, divid, classification_type, metric_x, metric_y, metrics_names, better, axis_limit);
     } catch (err) {
         console.log(`Invalid Url Error: ${err.stack} `);
     }
@@ -244,13 +250,16 @@ function join_all_json(result, divid, metric_x, metric_y, metrics_names, better)
 };
 
 function add_buttons(divid, metric_x, metric_y, better, data, json_download) {
+    // load default zoom state from div attribute 'default-zoom'
+    let default_zoom = document.getElementById(divid).getAttribute('default-zoom');
+    default_zoom = (default_zoom && (default_zoom === 'on' || default_zoom === 'true'));
 
     //add button which allows to toogle between reset view & out
     d3.select('#' + divid + '_buttons_container').append("div").attr("class", "toggle_div").append("button")
         .attr("class", "toggle_axis_button")
         .attr("id", divid + "axis_button")
-        .attr("name", "optimal view")
-        .text("optimal view")
+        .attr("name", default_zoom ? "reset view" : "optimal view")
+        .text(default_zoom ? "reset view" : "optimal view")
         .on('click', function(d) {
             if (this.name == "optimal view") {
                 d3.select(this).text("reset view");
@@ -264,18 +273,16 @@ function add_buttons(divid, metric_x, metric_y, better, data, json_download) {
                 this.name = "optimal view"
                     //the chart will be created again, but first it needs to know which classification method is selected
                 let select_list = document.getElementById(divid + "_dropdown_list")
-                onQuartileChange(select_list.options[select_list.selectedIndex].id, metric_x, metric_y, better)
-
+                onQuartileChange(select_list.options[select_list.selectedIndex].id, metric_x, metric_y, better);
             }
-
-        })
+        });
 
     // add options button to download chart in pdf or png format
     let select_list = d3.select("#" + divid + "_buttons_container").append("div").attr("class", "download_div").append("form").append("select")
         .attr("class", "download_button")
         .attr("id", divid + "_download_button")
         .on('change', function(d) {
-            
+
             // add the oeb logo, for download, which will be removed after the download function is completed
             if (window.location.href.toLocaleLowerCase().includes("openebench") == true ){
                 let margin = {top: Math.round($(window).height()* 0.0318), right:  Math.round($(window).width()* 0.0261), bottom: compute_chart_height(data), left:  Math.round($(window).width()* 0.0373)}
@@ -300,7 +307,7 @@ function add_buttons(divid, metric_x, metric_y, better, data, json_download) {
         .attr("disabled", "selected")
         .text("Download")
         .attr("style", "display:none")
-    
+
     select_list.append("option")
     .attr("class", "selection_option")
     .attr("id", "json")
@@ -354,7 +361,7 @@ function download_file(format, id, json_download) {
         downloadAnchorNode.setAttribute("download", "raw_data_" + id + ".json");
         document.body.appendChild(downloadAnchorNode); // required for firefox
         downloadAnchorNode.click();
-        downloadAnchorNode.remove();  
+        downloadAnchorNode.remove();
     } else {
 
         html2canvas(document.querySelector("#" + download_id)).then(function(canvas) {
