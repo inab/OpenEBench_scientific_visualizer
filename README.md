@@ -1,6 +1,9 @@
 # OpenEBench Scientific Benchmarking visualizer
 Repository that contains the code required to visualize results from scientific benchmarking experiments in plot format, and apply several classification methods in order to transform them to tabular format.
 
+## NPM Package
+NPM Package `@inb/oeb-chart-scatter` published to: https://www.npmjs.com/package/@inb/oeb-chart-scatter
+
 ## Branches
 * master: Python visualizer scripts 
 * js: JavaScript visualizer project
