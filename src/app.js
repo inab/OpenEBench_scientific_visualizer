@@ -69,7 +69,7 @@ function load_scatter_visualization() {
                               dates {
                                 creation
                                 modification
-                                _public
+                                public
                               }
                               depends_on {
                                 metrics_id
