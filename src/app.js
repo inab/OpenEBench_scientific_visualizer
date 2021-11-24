@@ -29,10 +29,17 @@ function load_scatter_visualization() {
     i = 0
     for (y of charts) {
 
-        // define base url - production or development
+        // ********* DEPRECATED ******
+        // Please supply data-api-url parameter
+        // ***************************
+        // define base url - production or development --- DEPCRECATED
         //check for mode by default it is production if no param is given
-        var mode = $(y).data("mode") ? "dev-openebench" : "openebench"
+        var mode = $(y).data("mode") ? $(y).data("mode") : "openebench"
         let base_url = "https://" + mode + ".bsc.es/";
+        // **************************
+
+        const api_url = $(y).data("api-url")
+        let url = api_url ? api_url : base_url + "sciapi/graphql"; //downward compatibility
 
         // get benchmarking event id
         dataId = y.getAttribute('data-id');
@@ -43,7 +50,6 @@ function load_scatter_visualization() {
 
         //append selection list
         append_classifiers_list(divid);
-        let url = base_url + "sciapi/graphql";
 
         let json_query = `query getDatasets($dataset_id: String!){
                           getDatasets(datasetFilters:{id: $dataset_id, type:"aggregation"}) {
@@ -117,16 +123,29 @@ function get_data(url, json_query, dataId, divid) {
                 fetchData().then(response => {
 
                     let metrics_list = response.data.getMetrics;
-
                     // iterate over the list of metrics to generate a dictionary
                     let metrics_names = {};
                     metrics_list.forEach(function(element) {
+                        // parsing GraphQL wrapped JSON Object
+                        try {
+                            element._metadata = JSON.parse(element._metadata);
+                        } catch (err) {
+                            console.warn (err);
+                        }
                         metrics_names[element._id] = element.title
                         if (element._metadata != null && "level_2:metric_id" in element._metadata) {
                             metrics_names[element._metadata["level_2:metric_id"]] = element.title
 
                         } 
                     });
+
+                    // parsing GraphQL wrapped JSON Object
+                    try {
+                      result[0].datalink.inline_data = JSON.parse(result[0].datalink.inline_data);
+                    } catch (err) {
+                        console.warn (err);
+                    }
+                    
                     // get optimization point
                     if (result[0].datalink.inline_data.visualization.optimization == "bottom-right") {
                         better[divid] = "bottom-right";

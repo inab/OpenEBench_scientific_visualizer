@@ -4,6 +4,14 @@ Repository that contains the code required to visualize results from scientific 
 ## NPM Package
 NPM Package `@inb/oeb-chart-scatter` published to: https://www.npmjs.com/package/@inb/oeb-chart-scatter
 
+## Data Input
+The visualizer uses as input the results of one challenge stored in the OpenEBench database in the format of the official [Benchmarking Data Model](https://github.com/inab/benchmarking-data-model).
+
+Per default it consumes the [OpenEBench Sci-API](https://openebench.bsc.es/sciapi/) (deprecated).
+
+It is also able to consume the new API [OpenEBench API Scientific](https://dev-openebench.bsc.es/api/scientific/). 
+The API can be set by supplying the following attribute: `data-api-url="{{ API_URL }}"`
+
 ## Branches
 * master: Python visualizer scripts 
 * js: JavaScript visualizer project
@@ -49,6 +57,7 @@ The HTML file should look like [this](./index.html)
 -   data-id : the official OEB id of the aggregation dataset you want to visualize.
 -   toTable: should be set to true/false depending whether you want to view the classification table in the right or not.
 -   class: should always be *'benchmarkingChart_scatter'*
+-   data-api-url: Should always contain the full API URL e.g. https://openebench.bsc.es/api/scientific/graphql
 
 
 ## Live Demo
