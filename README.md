@@ -45,6 +45,8 @@ In your frontend component:
           ></div>
 ```
 
+You can then call the `load_scatter_visualization()` function.
+
 ### Attributes that can be set on the _<div\>_ tag
 
 -   data-id : the official OEB id of the aggregation dataset you want to visualize.
