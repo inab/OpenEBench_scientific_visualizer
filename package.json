@@ -1,6 +1,6 @@
 {
   "name": "@inb/oeb-chart-scatter",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "benchmarkingChart_scatter",
   "main": "build/build.js",
   "devDependencies": {
