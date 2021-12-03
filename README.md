@@ -23,7 +23,36 @@ The API can be set by supplying the following attribute: `data-api-url="{{ API_U
 ![diagonals](pictures/diag_example.png)
 * Clustering - group the participants using the K-means clustering algorithm and sort the clusters according to the performance.
 ![clusters](pictures/clusters_example.png)
+
+
 ## How to use
+
+The component can be imported in two way: As npm package (preferred), or via the build file from the git repository (see bottom).
+
+### Use the npm package
+
+`npm i @inb/oeb-chart-scatter`
+
+In your frontend component:
+`import { load_scatter_visualization } from "@inb/oeb-chart-scatter";`
+
+```                          
+          <div
+              data-id="{{ ID }}"
+              class="benchmarkingChart_scatter"
+              data-api-url="{{ API_URL }}"
+              toTable="true"
+          ></div>
+```
+
+### Attributes that can be set on the _<div\>_ tag
+
+-   data-id : the official OEB id of the aggregation dataset you want to visualize.
+-   toTable: should be set to true/false depending whether you want to view the classification table in the right or not.
+-   class: should always be *'benchmarkingChart_scatter'*
+-   data-api-url: Should always contain the full API URL e.g. https://openebench.bsc.es/api/scientific/graphql
+
+### Alternative way: Clone from repository
 
 Requirements:
 
@@ -51,13 +80,6 @@ Compile with webpack and visualize sample results in your localhost :
 Add JS cdn for D3 and jquery and the build file which you can download from build/build.js and tag it into your html. You can then call the `load_scatter_visualization()` function.  
 
 The HTML file should look like [this](./index.html)
-
-### Attributes that can be set on the _<div\>_ tag
-
--   data-id : the official OEB id of the aggregation dataset you want to visualize.
--   toTable: should be set to true/false depending whether you want to view the classification table in the right or not.
--   class: should always be *'benchmarkingChart_scatter'*
--   data-api-url: Should always contain the full API URL e.g. https://openebench.bsc.es/api/scientific/graphql
 
 
 ## Live Demo
