@@ -12,9 +12,9 @@ export function fill_in_table (divid, data, all_participants, removed_tools){
     row.insertCell(0).innerHTML = element.toolname;
     //if the participant is not hidden the 2nd column is filled with the corresponding quartile
     // if not it is filled with --
-    if ($.inArray(element.toolname.replace(/[\. ()/_]/g, "-"), removed_tools) == -1) {
+    if ($.inArray(element.toolname.replace(/[\. ()+/_]/g, "-"), removed_tools) == -1) {
       // var quartile;
-      let obj = data.find(o => o.toolname.replace(/[\. ()/_]/g, "-") === element.toolname.replace(/[\. ()/_]/g, "-"));
+      let obj = data.find(o => o.toolname.replace(/[\. ()+/_]/g, "-") === element.toolname.replace(/[\. ()/_]/g, "-"));
       row.insertCell(1).innerHTML = obj.quartile;
     } else {
       row.insertCell(1).innerHTML = "--";
@@ -22,7 +22,7 @@ export function fill_in_table (divid, data, all_participants, removed_tools){
     
     // add id
     var my_cell = row.cells[0];
-    my_cell.id = divid+"___cell"+element.toolname.replace(/[\. ()/-]/g, "_");
+    my_cell.id = divid+"___cell"+element.toolname.replace(/[\. ()+/-]/g, "_");
 
     my_cell.addEventListener('click', function (d) {
 
@@ -87,9 +87,9 @@ export function set_cell_colors(divid, legend_color_palette, removed_tools){
       $(this).css({'background' : '#edf8e9'}); 
     } else if (cell_value == "--") {
       $(this).css({'background' : '#f0f0f5'}); 
-    } else if ($.inArray(cell_value, tools) > -1 && $.inArray(cell_value.replace(/[\. ()/_]/g, "-"), removed_tools) == -1) {
+    } else if ($.inArray(cell_value, tools) > -1 && $.inArray(cell_value.replace(/[\. ()+/_]/g, "-"), removed_tools) == -1) {
       $(this).css({'background' : 'linear-gradient(to left, white 92%, ' + legend_color_palette[cell_value] + ' 8%)'});
-    } else if ($.inArray(cell_value.replace(/[\. ()/_]/g, "-"), removed_tools) > -1) {
+    } else if ($.inArray(cell_value.replace(/[\. ()+/_]/g, "-"), removed_tools) > -1) {
       $(this).css({ 'background' : 'linear-gradient(to left, white 92%, ' + legend_color_palette[cell_value] + ' 8%)', 'opacity': 0.5});
       $(this).closest("tr").css('opacity', 0.5);
     } else {

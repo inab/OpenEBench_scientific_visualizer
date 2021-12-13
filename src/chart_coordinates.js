@@ -8,7 +8,7 @@ export function append_dots_errobars (svg, data, xScale, yScale, div, cValue, co
       .attr("class", "error-line")
       .attr("stroke", "black")
       .style("stroke-dasharray", ("2, 2"))
-      .attr("id", function (d) { return divid+"___line"+d.toolname.replace(/[\. ()/-]/g, "_");})
+      .attr("id", function (d) { return divid+"___line"+d.toolname.replace(/[\. ()+/-]/g, "_");})
       .attr("x1", function(d) {
         return xScale(d.x);
       })
@@ -29,7 +29,7 @@ export function append_dots_errobars (svg, data, xScale, yScale, div, cValue, co
       .attr("class", "error-line")
       .attr("stroke", "black")
       .style("stroke-dasharray", ("2, 2"))
-      .attr("id", function (d) { return divid+"___lineX"+d.toolname.replace(/[\. ()/-]/g, "_");})
+      .attr("id", function (d) { return divid+"___lineX"+d.toolname.replace(/[\. ()+/-]/g, "_");})
       .attr("x1", function(d) {
         return xScale(d.x - d.e_x);
       })
@@ -47,7 +47,7 @@ export function append_dots_errobars (svg, data, xScale, yScale, div, cValue, co
   svg.append("g").selectAll("line")
       .data(data).enter()
       .append("line")
-      .attr("id", function (d) { return divid+"___top"+d.toolname.replace(/[\. ()/-]/g, "_");})
+      .attr("id", function (d) { return divid+"___top"+d.toolname.replace(/[\. ()+/-]/g, "_");})
       .attr("class", "error-cap")
       .attr("stroke", "black")
       .style("stroke-width", "1px")
@@ -68,7 +68,7 @@ export function append_dots_errobars (svg, data, xScale, yScale, div, cValue, co
   svg.append("g").selectAll("line")
       .data(data).enter()
       .append("line")
-      .attr("id", function (d) { return divid+"___bottom"+d.toolname.replace(/[\. ()/-]/g, "_");})
+      .attr("id", function (d) { return divid+"___bottom"+d.toolname.replace(/[\. ()+/-]/g, "_");})
       .attr("class", "error-cap")
       .attr("stroke", "black")
       .style("stroke-width", "1px")
@@ -92,7 +92,7 @@ export function append_dots_errobars (svg, data, xScale, yScale, div, cValue, co
       .attr("class", "error-cap")
       .attr("stroke", "black")
       .style("stroke-width", "1px")
-      .attr("id", function (d) { return divid+"___right"+d.toolname.replace(/[\. ()/-]/g, "_");})
+      .attr("id", function (d) { return divid+"___right"+d.toolname.replace(/[\. ()+/-]/g, "_");})
       .attr("x1", function(d) {
         return xScale(d.x + d.e_x);
       })
@@ -113,7 +113,7 @@ export function append_dots_errobars (svg, data, xScale, yScale, div, cValue, co
       .attr("class", "error-cap")
       .attr("stroke", "black")
       .style("stroke-width", "1px")
-      .attr("id", function (d) { return divid+"___left"+d.toolname.replace(/[\. ()/-]/g, "_");})
+      .attr("id", function (d) { return divid+"___left"+d.toolname.replace(/[\. ()+/-]/g, "_");})
       .attr("x1", function(d) {
         return xScale(d.x - d.e_x);
       })
@@ -145,7 +145,7 @@ export function append_dots_errobars (svg, data, xScale, yScale, div, cValue, co
             .range(Array(Math.ceil(data.length/7)).fill([d3.symbolCircle, d3.symbolCross, d3.symbolDiamond, d3.symbolSquare, d3.symbolStar, d3.symbolTriangle, d3.symbolWye]).flat());
 
     dots.attr("d", symbol.type(function(d){return shapeScale(d.toolname)}).size(Math.round($(window).height()* 0.2)))
-      .attr("id", function (d) {  return divid+"___"+d.toolname.replace(/[\. ()/-]/g, "_");})
+      .attr("id", function (d) {  return divid+"___"+d.toolname.replace(/[\. ()+/-]/g, "_");})
       .attr("class","line")
       .attr('transform',function(d){ return "translate("+xScale(d.x)+","+yScale(d.y)+")"; })
       .attr("r", 6)
@@ -154,7 +154,7 @@ export function append_dots_errobars (svg, data, xScale, yScale, div, cValue, co
       })
       .on("mouseover", function(d) {
         // show tooltip only if the tool is visible
-        let ID = divid+"___"+d.toolname.replace(/[\. ()/-]/g, "_");
+        let ID = divid+"___"+d.toolname.replace(/[\. ()+/-]/g, "_");
         if (metric_x.startsWith("OEBM") == true){
           var txt_x = metrics_names[metric_x];
         } else if ( metric_x in metrics_names) {
