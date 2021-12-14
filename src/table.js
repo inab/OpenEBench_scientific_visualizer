@@ -14,7 +14,7 @@ export function fill_in_table (divid, data, all_participants, removed_tools){
     // if not it is filled with --
     if ($.inArray(element.toolname.replace(/[\. ()+/_]/g, "-"), removed_tools) == -1) {
       // var quartile;
-      let obj = data.find(o => o.toolname.replace(/[\. ()+/_]/g, "-") === element.toolname.replace(/[\. ()/_]/g, "-"));
+      let obj = data.find(o => o.toolname.replace(/[\. ()+/_]/g, "-") === element.toolname.replace(/[\. ()+/_]/g, "-"));
       row.insertCell(1).innerHTML = obj.quartile;
     } else {
       row.insertCell(1).innerHTML = "--";
