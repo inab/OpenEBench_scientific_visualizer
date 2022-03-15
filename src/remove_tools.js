@@ -1,3 +1,5 @@
+import * as JQuery from "jquery";
+const $ = JQuery.default;
 
 export function remove_hidden_tools(data, removed_tools){
   // remove from the data array the participants that the user has hidden (removed_tools)

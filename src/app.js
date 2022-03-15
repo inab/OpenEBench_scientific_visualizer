@@ -7,6 +7,10 @@ import { compute_chart_height } from "./scatter_plot"
 import html2canvas from 'html2canvas'
 import * as jsPDF from 'jspdf'
 import d3_save_svg from 'd3-save-svg';
+import * as d3 from "d3";
+import * as JQuery from "jquery";
+const $ = JQuery.default;
+window.d3 = d3;
 
 // ./node_modules/.bin/webpack-cli src/app.js --output=build/build.js -d -w
 

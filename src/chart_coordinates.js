@@ -1,3 +1,5 @@
+import * as JQuery from "jquery";
+const $ = JQuery.default;
 
 export function append_dots_errobars (svg, data, xScale, yScale, div, cValue, color,divid, metric_x, metric_y, metrics_names){
 

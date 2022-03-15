@@ -65,7 +65,7 @@ div.benchmark_tooltip {
     width: 20vw;
     float: left;
     height: 1.5vw;
-
+    cursor: pointer;
 }
 
 .classificators_list:hover {

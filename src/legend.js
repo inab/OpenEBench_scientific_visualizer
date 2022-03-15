@@ -1,5 +1,7 @@
 import { compute_classification } from "./classification";
 import { better } from "./app"
+import * as JQuery from "jquery";
+const $ = JQuery.default;
 
 export function draw_legend (data, svg, xScale, yScale, div, width, height, removed_tools, color, color_domain, divid,classification_type, legend_color_palette) {
   

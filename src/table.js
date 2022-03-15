@@ -1,3 +1,5 @@
+import * as JQuery from "jquery";
+const $ = JQuery.default;
 
 export function fill_in_table (divid, data, all_participants, removed_tools){
 

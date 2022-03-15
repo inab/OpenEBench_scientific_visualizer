@@ -1,7 +1,8 @@
 import { append_dots_errobars } from './chart_coordinates'
 import { draw_legend } from "./legend";;
 import { compute_classification } from "./classification";
-
+import * as JQuery from "jquery";
+const $ = JQuery.default;
 
 export function createChart (data,divid, classification_type, metric_x, metric_y, metrics_names, better, axis_limits){
 
