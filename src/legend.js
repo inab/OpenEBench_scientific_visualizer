@@ -25,20 +25,20 @@ export function draw_legend (data, svg, xScale, yScale, div, width, height, remo
       .style("fill", color)
         .attr("d", symbol.type(function(d){return shapeScale(d)}).size(Math.round($(window).height()* 0.22)))
         .attr("transform", function(d, i) { return "translate(" + (width+25+i%n*(Math.round($(window).width()* 0.0002))) + "," + (Math.round($(window).height()* 0.01)) +  ")"; })
-        .attr("id", function (d) { return divid+"___leg_symbol"+d.replace(/[\. ()/-]/g, "_");});
+        .attr("id", function (d) { return divid+"___leg_symbol"+d.replace(/[\. ()+/-]/g, "_");});
 
     // draw legend colored rectangles
     legend.append("rect")
           .attr("x", width + Math.round($(window).width()* 0.010227))
           .attr("width", Math.round($(window).width()* 0.010227))
           .attr("height", Math.round($(window).height()* 0.020833))
-          .attr("id", function (d) { return divid+"___leg_rect"+d.replace(/[\. ()/-]/g, "_");})
+          .attr("id", function (d) { return divid+"___leg_rect"+d.replace(/[\. ()+/-]/g, "_");})
           .attr("class", "benchmark_legend_rect")
           .style("fill", "transparent")
           .attr("z-index", 3)
           .on('click', function(d) {
             
-            let dot = d3.select("text#" +divid+"___"+d.replace(/[\. ()/-]/g, "_"));
+            let dot = d3.select("text#" +divid+"___"+d.replace(/[\. ()+/-]/g, "_"));
             let ID = dot._groups[0][0].id;
   
             if(data.length-removed_tools.length-1 >= 4){
@@ -70,7 +70,7 @@ export function draw_legend (data, svg, xScale, yScale, div, width, height, remo
           })
           .on("mouseover", function (d) {
   
-            let dot = d3.select("text#" +divid+"___"+d.replace(/[\. ()/-]/g, "_"));
+            let dot = d3.select("text#" +divid+"___"+d.replace(/[\. ()+/-]/g, "_"));
             let ID = dot._groups[0][0].id;
             let tool_id =ID.split("___")[1];
   
@@ -87,7 +87,7 @@ export function draw_legend (data, svg, xScale, yScale, div, width, height, remo
           }) 
           .on("mouseout", function (d) {
   
-            let dot = d3.select("text#" +divid+"___"+d.replace(/[\. ()/-]/g, "_"));
+            let dot = d3.select("text#" +divid+"___"+d.replace(/[\. ()+/-]/g, "_"));
             let ID = dot._groups[0][0].id;
             let tool_id =ID.split("___")[1];
   
@@ -106,7 +106,7 @@ export function draw_legend (data, svg, xScale, yScale, div, width, height, remo
     legend.append("text")
           .attr("x", width + Math.round($(window).width()* 0.028))
           .attr("y", Math.round($(window).height()* 0.01041))
-          .attr("id", function (d) { return divid+"___"+d.replace(/[\. ()/-]/g, "_");})
+          .attr("id", function (d) { return divid+"___"+d.replace(/[\. ()+/-]/g, "_");})
           .attr("dy", ".35em")
           .style("text-anchor", "start")
           .style("font-size", "1vw")
