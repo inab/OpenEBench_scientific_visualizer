@@ -56,19 +56,32 @@ function add_arrow(divid, svg, xScale, yScale, better){
   let y_axis = yScale.domain();
 
   // set coordinates depending on optimization
-  let x1, y1, x2, y2;
+  let x1, y1, x2, y2, right, top;
   if (better == "bottom-right"){
     x1 = (x_axis[1]-(0.05*(x_axis[1]-x_axis[0])))
     y1 = (y_axis[1]-(0.9*(y_axis[1]-y_axis[0])))
     x2 = (x_axis[1]-(0.009*(x_axis[1]-x_axis[0]))) 
     y2 = (y_axis[1]-(0.97*(y_axis[1]-y_axis[0]))) 
+    right = 1 
+    top = 0
  } 
  else if (better == "top-right"){
     x1 = (x_axis[1]-(0.05*(x_axis[1]-x_axis[0])))
     y1 = (y_axis[1]-(0.1*(y_axis[1]-y_axis[0])))
     x2 = (x_axis[1]-(0.009*(x_axis[1]-x_axis[0]))) 
     y2 = (y_axis[1]-(0.03*(y_axis[1]-y_axis[0]))) 
- };
+    right = 1
+    top = 1
+
+  } else if(better == "top-left"){
+    x1 = (x_axis[1]-(0.95*(x_axis[1]-x_axis[0])))
+    y1 = (y_axis[1]-(0.1*(y_axis[1]-y_axis[0])))
+    x2 = (x_axis[1]-(0.991*(x_axis[1]-x_axis[0]))) 
+    y2 = (y_axis[1]-(0.03*(y_axis[1]-y_axis[0]))) 
+    right = 0
+    top = 1
+  } 
+
 
   var line = svg.append("line")
   .attr("class", function (d) { return divid+"___better_annotation";})
@@ -83,8 +96,8 @@ function add_arrow(divid, svg, xScale, yScale, better){
 
   svg.append("text")
   .attr("class", function (d) { return divid+"___better_annotation";})
-  .attr("x", xScale(x1))
-  .attr("y", yScale(y2))
+  .attr("x", xScale(x_axis[right]))
+  .attr("y", yScale(y_axis[top]))
   .style("opacity", 0.4)
   .style("font-size", ".7vw")
   .text("better");
@@ -110,12 +123,18 @@ function draw_pareto(data, svg, xScale, yScale, removed_tools,divid, better){
     // append edges to pareto frontier
     pf_coords.unshift ([pf_coords[0][0], y_axis[1]]);
     pf_coords.push([x_axis[0], pf_coords[pf_coords.length -1 ][1]]);
+  
   } else if (better == "top-right"){
     pf_coords = pf.getParetoFrontier(points, { optimize: 'topRight'});
     // append edges to pareto frontier
     pf_coords.unshift ([pf_coords[0][0], y_axis[0]]);
     pf_coords.push([x_axis[0], pf_coords[pf_coords.length -1 ][1]]);
 
+  } else if(better == "top-left"){
+    pf_coords = pf.getParetoFrontier(points, { optimize: 'topLeft'});
+    // append edges to pareto frontier
+    pf_coords.unshift ([pf_coords[0][0], y_axis[0]]);
+    pf_coords.push([x_axis[1], pf_coords[pf_coords.length -1 ][1]]);
   }
   
   for (var i = 0; i < (pf_coords.length-1); i++) {

@@ -53,6 +53,13 @@ export function get_clusters(data, svg, xScale, yScale, div, width, height, remo
       scores.push(distance);
       results[i]['score'] = distance;
     };
+  } else if (better == "top-left"){
+    
+    for (let i = 0; i < x_norm.length; i++) {
+      let distance = (1 -x_norm[i]) + y_norm[i];
+      scores.push(distance);
+      results[i]['score'] = distance;
+    };
   };
 
   let sorted_results = sortByKey(results, "score");

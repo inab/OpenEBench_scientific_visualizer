@@ -97,7 +97,20 @@ export function get_square_quartiles(data, svg, xScale, yScale, div, removed_too
                 element['quartile'] = 4;
           }
         });
-    };
+        
+      } else if (better == "top-left"){
+        data.forEach(function(element) {
+              if (element['x'] >= quantile_x && element['y'] < quantile_y){
+                    element['quartile'] = 4;
+              }else if (element['x'] >= quantile_x && element['y'] >= quantile_y){
+                    element['quartile'] = 2;
+              }else if (element['x'] < quantile_x && element['y'] >= quantile_y){
+                    element['quartile'] = 1;
+              }else if (element['x'] < quantile_x && element['y'] < quantile_y){
+                    element['quartile'] = 3;
+              }
+            });
+        }
   
     fill_in_table (divid, data, all_participants, removed_tools);
     set_cell_colors(divid, legend_color_palette, removed_tools);
@@ -106,10 +119,10 @@ export function get_square_quartiles(data, svg, xScale, yScale, div, removed_too
   
   
   export function append_quartile_numbers_to_plot (svg, xScale, yScale, better,divid){
-  
+
     let x_axis = xScale.domain();
     let y_axis = yScale.domain();
-  
+
     let num_bottom_right,num_bottom_left,num_top_right,num_top_left;
     // append quartile numbers to plot
     if (better == "bottom-right"){
@@ -117,15 +130,21 @@ export function get_square_quartiles(data, svg, xScale, yScale, div, removed_too
        num_bottom_left = "2";
        num_top_right = "3";
        num_top_left = "4";
-    } 
+    }
     else if (better == "top-right"){
        num_bottom_right = "3";
        num_bottom_left = "4";
        num_top_right = "1";
        num_top_left = "2";
-    };
-  
-    
+
+    } else if (better == "top-left"){
+      num_bottom_right = "4";
+      num_bottom_left = "3";
+      num_top_right = "2";
+      num_top_left = "1";
+    }
+
+
     svg.append("text")
     .attr("id", function (d) { return divid+"___num_bottom_right";})
     .attr("x", xScale(x_axis[1]-(0.05*(x_axis[1]-x_axis[0]))))

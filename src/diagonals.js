@@ -33,8 +33,13 @@ export function get_diagonal_quartiles(data, svg, xScale, yScale, div, width, he
         scores_coords[x_norm[i] + y_norm[i]] = [x_values[i], y_values[i]];
         //append the score to the data array
         tools_not_hidden[i]['score'] = x_norm[i] + y_norm[i];
-      };
-  
+
+      }else if (better == "top-left"){
+        scores.push(1 -x_norm[i] + y_norm[i]);
+        scores_coords[(1 -x_norm[i]) + y_norm[i]] = [x_values[i], y_values[i]];
+        //append the score to the data array
+        tools_not_hidden[i]['score'] = (1 -x_norm[i]) + y_norm[i];
+      }
     };
   
     // sort the scores and compute quartiles
@@ -172,6 +177,9 @@ export function get_diagonal_quartiles(data, svg, xScale, yScale, div, width, he
     } else if (better == "top-right"){
          x_coords = [half_point[0] + 2*max_x, half_point[0] - 2*max_x];
          y_coords = [half_point[1] - 2*max_y, half_point[1] + 2*max_y];   
+    } else if (better == "top-left"){
+       x_coords = [half_point[0] + 2*max_x, half_point[0] - 2*max_x];
+       y_coords = [half_point[1] + 2*max_y, half_point[1] - 2*max_y];   
     };
   
     return [x_coords, y_coords];
