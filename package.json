@@ -6,7 +6,7 @@
   "devDependencies": {
     "apollo-fetch": "^0.7.0",
     "clusters": "0.0.4",
-    "css-loader": "^1.0.0",
+    "css-loader": "^6.7.3",
     "d3": "^5.5.0",
     "d3-polygon": "^1.0.5",
     "d3-save-svg": "0.0.2",
@@ -15,9 +15,9 @@
     "jspdf": "^1.5.3",
     "license-checker": "^25.0.1",
     "pareto-frontier": "^1.1.1",
-    "style-loader": "^0.21.0",
-    "webpack": "^4.15.1",
-    "webpack-cli": "^3.0.8"
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   },
   "scripts": {
     "prod": "webpack-cli src/app.js --output=build/build.js -p;",
