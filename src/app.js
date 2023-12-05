@@ -217,6 +217,12 @@ function join_all_json(result, divid, metric_x, metric_y, metrics_names, better)
 
             let jo = {};
             jo['toolname'] = short_name;
+            if (element.metric_x == 999999 && element.metric_x == 999999){
+                element.metric_x = NaN; element.stderr_x = NaN;
+            }
+            if (element.metric_y == 999999 && element.metric_y == 999999){
+                element.metric_y = NaN; element.stderr_y = NaN;
+            }
             jo['x'] = element.metric_x;
             jo['y'] = element.metric_y;
             jo['e_y'] = element.stderr_y ? parseFloat(element.stderr_y) : 0;
